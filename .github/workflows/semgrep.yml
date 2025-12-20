@@ -6,6 +6,9 @@ name: Semgrep
 # Semgrep CI docs
 # https://semgrep.dev/docs/semgrep-ci/overview/
 
+permissions:
+  contents: read
+
 on:
   # Scan changed files in PRs, block on new issues only (existing issues ignored)
   # All Branches
