@@ -1,0 +1,246 @@
+{
+    "security_config": {
+        "version": "1.0",
+        "_comment": "For examples of configuration options, refer to the documentation at tas.piscinadeentropia.es/docs/configuration",
+        "bot_type": "polling",
+        "help_command": "/help",
+        "support_contact": "example@example.com",
+        "support_website": "https://example.com",
+    	"MainConfig": {
+            "rate_limit":{
+                "enabled": true,
+                "max_requests": 10,
+                "display_warning": true,
+                "custom_warning_enabled": true,
+                "custom_warning_message": "You are sending messages too quickly. Please slow down.",
+                "logging": true
+            },
+            "message_filter_type":{
+                "enabled": true,
+                "type": "only_commands",
+                "display_warning": true,
+                "custom_warning_enabled": true,
+                "custom_warning_message": "Message type not allowed. Please use commands only.",
+                "logging": true
+            },
+            "characters_filter": {
+                "enabled": true,
+                "_comment": "Please, use regex expressions, you can test them at https://regex101.com/",
+                "allowed_characters": "^[a-zA-Z0-9]",
+                "display_warning": true,
+                "custom_warning_enabled": true,
+                "custom_warning_message": "Your message contains not allowed characters.",
+                "logging": true
+            },
+            "user_filters": {
+                "enabled": true,
+                "_comment": "Choose the mode for user filtering: file, dictionary or database. Dictionary below would be only readed if dictionary mode is selected.",
+                "mode": "file",
+                "whitelist": {
+                    "whitelist_enabled": true,
+                    "whitelist_dict": [],
+                    "whitelist_file": "whitelist.txt"
+
+                },
+                "blacklist": {
+                    "blacklist_enabled": true,
+                    "blacklist_dict": [],
+                    "blacklist_file": "blacklist.txt"
+                },
+                "display_warning": true,
+                "custom_warning_enabled": true,
+                "custom_warning_message": "You are not allowed to use this bot.",
+                "logging": true
+            },
+            "safe_requests": {
+                "enabled": true,
+                "forze_https": true,
+                "allowed_domains": [
+                    "api.telegram.org",
+                    "example4.com"
+                ],
+                "blacklisted_domains": [
+                    "example.com",
+                    "example2.com"
+                ],
+                "_comment": "OWASP implemention prevents connecting to remote paths and adresses that do not comply with security standards.",
+                "owasp_implementation": true,
+                "logging": true
+            },
+            "safe_os": {
+                "enabled": true,
+                "_comment": "Use . for the current application directory",
+                "allowed_paths": [
+                    "."
+                ],
+                "allowed_os_modules": [
+                    "remove",
+                    "system"
+                ],
+                "allowed_os_system_commands": [
+                    "ls",
+                    "dir"
+                ],
+                "owasp_implementation": true,
+                "logging": true
+            },
+            "remote_config": {
+                "enabled": false,
+                "_comment": "Allows to have this the remote configuration file on a remote server such as a CDN or GitHub.",
+                "config_url": "https://example.com/remote_config.json",
+                "auth": {
+                    "_comment": "Fill only if the remote config requires authentication",
+                    "username": "your_username",
+                    "password": "your_password",
+                    "bearer_token_VARIABLE": "BEARER_TOKEN"
+                },
+                "fetch_interval_minutes": 60,
+                "on_failed_fetch": "use_last_valid",
+                "logging": true
+            },
+            "telegram_connection_check": {
+                "enabled": true,
+                "on_failure": "alert_admin",
+                "block_bot": true,
+                "logging": true
+            },
+            "user_authentication":{
+                "enabled": false,
+                "auth_method": "basic",
+                "RBAC_enabled": false,
+                "bot_user": "",
+                "bot_password": "",
+                "auth_file": "auth_users.csv",
+                "auth_db": {
+                    "_comment": "Fill only if auth_method is database",
+                    "db_type": "sqlite",
+                    "connection_string": "users.db"
+                },
+                "logging": true
+            },
+            "captcha":{
+                "enabled": false,
+                "max_trys": 3,
+                "logging": true
+            },
+            "chat_filter_type":{
+                "enabled": true,
+                "type": "only_user_chats",
+                "block_bots": true,
+                "display_warning": true,
+                "custom_warning_enabled": true,
+                "custom_warning_message": "Bot only available in private chats.",
+                "logging": true
+            },
+            "network_checks": {
+                "warp_vpn_check": {
+                    "enabled": false,
+                    "on_failure": "alert_admin",
+                    "block_bot": true,
+                    "network_config":{
+                        "type": "warp",
+                        "ASN": "ASN_NUMBER",
+                        "IP_ranges": [
+                            "IP_RANGE_1",
+                            "IP_RANGE_2"
+                        ]
+                    },
+                    "logging": true
+                }
+            },
+            "file_integrity_checks": {
+                "volume_check": {
+                    "enabled": true,
+                    "expected_volumes": [
+                        "volume1",
+                        "volume2"
+                    ],
+                    "on_mismatch": "alert_admin",
+                    "logging": true
+                },
+                "directory_check": {
+                    "enabled": false,
+                    "expected_directories": [
+                        "dir1",
+                        "dir2"
+                    ],
+                    "on_mismatch": "alert_admin",
+                    "logging": true
+                },
+                "files_check": {
+                    "enabled": false,
+                    "expected_files": [
+                        "file1",
+                        "file2"
+                    ],
+                    "on_mismatch": "alert_admin",
+                    "logging": true
+                }
+            },
+            "process_check": {
+                    "enabled": true,
+                    "expected_processes": [
+                        "process1",
+                        "process2"
+                    ],
+                    "on_mismatch": "alert_admin",
+                    "logging": true
+            },
+            "documents_cleaner": {
+                "dangerzone_clean": {
+                    "enabled": false,
+                    "on_detection": "alert_admin",
+                    "logging": true
+                }
+            },
+            "llm_protection": {
+                "enabled": true,
+                "on_detection": "alert_admin",
+                "logging": true
+            }
+        },
+        "logging_config": {
+            "Security_Log": {
+                "enabled": true,
+                "log_file": "bot_security.log"
+            },
+            "logging_modes": {
+                "telegram_bot_telemetry": {
+                    "enabled": true,
+                    "bot_VARIABLE_NAME": "<BOT_VARIABLE_NAME>",
+                    "chat_id_admin": "<CHAT_ID>"
+                }
+            },
+            "telemegry_services": {
+                "enabled": true,
+                "_comment": "options_available: grafana, prometheus, datadog. Don't use plaintext for apikey and application key, use environment variables instead.",
+                "service_name": "example_service",
+                "auth": {
+                    "_comment": "Fill only options for selected service",
+                    "endpoint": "endpoint_url",
+                    "METRICS_USERID": "USERID",
+                    "API_KEY_VARIABLE": "APIKEY",
+                    "DD-APPLICATION-KEY_VARIABLE": "APPLICATIONKEY"
+                }
+            }
+        },
+        "TAS_Self-Protection": {
+            "_comment": "Self-protection is always enabled.",
+            "package_integrity": true,
+            "compile_bytecode": true,
+            "config_check": {
+                "_comment": "Config sign errors would always block the bot operation.",
+                "enabled": true,
+                "on_mismatch": "alert_admin",
+                "PGP_public_key": "PGP_PUBLIC_KEY"
+            },
+            "Active_Monitoring": {
+                "enabled": true,
+                "_comment": "Monitor commands trying to modify, bypass or remove the TAS library code.",
+                "on_detection": "alert_admin",
+                "kill_process": false
+            },
+            "logging": true
+        }
+    }
+}
