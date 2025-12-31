@@ -65,6 +65,15 @@
                 ],
                 "_comment": "OWASP implemention prevents connecting to remote paths and adresses that do not comply with security standards.",
                 "owasp_implementation": true,
+                "manual_settings":{
+                    "enabled": false,
+                    "X-XSS-Protection": "1",
+                    "mode": "block",
+                    "cross_origin_isolated": true,
+                    "Cache-Control:": "no-cache",
+                    "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'",
+                    "Referrer-Policy": "strict-origin-when-cross-origin"
+                },
                 "logging": true
             },
             "safe_os": {
@@ -204,14 +213,12 @@
                 "enabled": true,
                 "log_file": "bot_security.log"
             },
-            "logging_modes": {
-                "telegram_bot_telemetry": {
+            "telegram_bot_telemetry": {
                     "enabled": true,
-                    "bot_VARIABLE_NAME": "<BOT_VARIABLE_NAME>",
+                    "bot_VARIABLE_TOKEN": "<BOT_VARIABLE_TOKEN>",
                     "chat_id_admin": "<CHAT_ID>"
-                }
             },
-            "telemegry_services": {
+            "telemetry_services": {
                 "enabled": true,
                 "_comment": "options_available: grafana, prometheus, datadog. Don't use plaintext for apikey and application key, use environment variables instead.",
                 "service_name": "example_service",
@@ -222,6 +229,12 @@
                     "API_KEY_VARIABLE": "APIKEY",
                     "DD-APPLICATION-KEY_VARIABLE": "APPLICATIONKEY"
                 }
+            },
+            "on_failure": {
+                "enabled": true,
+                "stop_bot": false,
+                "max_retries": 3,
+                "retry_interval_seconds": 5
             }
         },
         "TAS_Self-Protection": {
