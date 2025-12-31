@@ -144,15 +144,19 @@
             "network_checks": {
                 "warp_vpn_check": {
                     "enabled": false,
-                    "on_failure": "alert_admin",
                     "block_bot": true,
                     "network_config":{
                         "type": "warp",
+                        "_comment": "warp type would ignore below settings. Please, only use ASN or IP, you can set ASN to None without quotes to ignore ASN check, when ASN enabled IP ranges are ignored.",
                         "ASN": "ASN_NUMBER",
                         "IP_ranges": [
                             "IP_RANGE_1",
                             "IP_RANGE_2"
                         ]
+                    },
+                    "on_failure": {
+                        "send_alert": true,
+                        "stop_bot": false
                     },
                     "logging": true
                 }
@@ -205,6 +209,20 @@
             "llm_protection": {
                 "enabled": true,
                 "on_detection": "alert_admin",
+                "logging": true
+            },
+            "answer_filter": {
+                "enabled": true,
+                "forbidden_phrases": [
+                    "forbidden_phrase_1",
+                    "forbidden_phrase_2"
+                ],
+                "commands_exception": [
+                    "/auth",
+                    "/start"
+                ],
+                "on_detection": "alert_admin",
+                "block_response": true,
                 "logging": true
             }
         },
